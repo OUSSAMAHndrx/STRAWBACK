@@ -1,0 +1,5 @@
+streamlit
+backtrader
+pandas
+numpy
+oandapyV20
