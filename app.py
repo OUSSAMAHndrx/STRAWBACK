@@ -1,6 +1,7 @@
 import streamlit as st
 import subprocess
 import os
+import sys
 
 st.set_page_config(page_title="Quant Control Center", layout="wide")
 
@@ -79,8 +80,8 @@ fetch_data("{symbol}", "{timeframe_2}", {candles})
                 with open("download_data.py", "w", encoding="utf-8") as f:
                     f.write(download_script)
                 
-                # Execute the file and capture output
-                result = subprocess.run(["python", "download_data.py"], capture_output=True, text=True)
+                # Execute the file and capture output using sys.executable for cloud compatibility
+                result = subprocess.run([sys.executable, "download_data.py"], capture_output=True, text=True)
                 
                 if result.returncode == 0:
                     st.success("Data Downloaded Successfully!")
@@ -112,9 +113,8 @@ with tab2:
             with open("main.py", "w", encoding="utf-8") as f:
                 f.write(strategy_code)
                 
-            # Run main.py and capture the report
-            # Force subprocess to use utf-8 encoding as well
-            result = subprocess.run(["python", "main.py"], capture_output=True, text=True, encoding="utf-8")
+            # Run main.py and capture the report using sys.executable
+            result = subprocess.run([sys.executable, "main.py"], capture_output=True, text=True, encoding="utf-8")
             
             # Display results
             st.subheader("Terminal Output")
